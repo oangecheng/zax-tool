@@ -9,7 +9,7 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Theme.Zax_tool">
-    <activity android:name=".MainActivity">
+    <activity android:name="com.ustc.orange.zax.app.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
