@@ -8,7 +8,6 @@ import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.text.style.ReplacementSpan
 import androidx.annotation.IntDef
 import androidx.annotation.Px
@@ -86,11 +85,7 @@ class HollowTextSpan(private val text: String, private val bg: Drawable) : Repla
     // 更新画布区域，缓存
     canvasArea.right = canvas.width.toFloat()
     canvasArea.bottom = canvas.height.toFloat()
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-      canvas.saveLayer(canvasArea, null, Canvas.ALL_SAVE_FLAG)
-    } else {
-      canvas.saveLayer(canvasArea, null)
-    }
+    val sc = canvas.saveLayer(canvasArea, null)
 
     // 绘制背景
     paint.getFontMetricsInt(fontMetricsInt)
@@ -105,7 +100,7 @@ class HollowTextSpan(private val text: String, private val bg: Drawable) : Repla
     canvas.drawText(text, textX, textY.toFloat(), textPaint)
 
     // 恢复canvas
-    canvas.restore()
+    canvas.restoreToCount(sc)
   }
 
   private fun updateBounds() {
